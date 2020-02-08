@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+ <meta charset="UTF-8"> 
+ <title>Juego de las conjugaciones</title>
+ 
+ 
+<body>
+
+<h2>Conjugaciones (modo indicativo)</h2>
+
+<p>6 cuestiones. ¡Suerte!</p>
+
+<input id="compuestas" type="checkbox" onclick="otra()"><label for="compuestas"> Incluir formas compuestas</label>
+
+<p id="pregunta1"></p>
+<input id="usuario1">
+<button id="boton1" type="button" onclick="myFunction(solucion1,1)">Enviar</button>
+<p id="muestraSolucion1">-</p>
+<p id="realimentacion1">-</p>
+
+<p id="pregunta2"></p>
+<input id="usuario2">
+<button id="boton2" type="button" onclick="myFunction(solucion2,2)">Enviar</button>
+<p id="muestraSolucion2">-</p>
+<p id="realimentacion2">-</p>
+
+<p id="pregunta3"></p>
+<input id="usuario3">
+<button id="boton3" type="button" onclick="myFunction(solucion3,3)">Enviar</button>
+<p id="muestraSolucion3">-</p>
+<p id="realimentacion3">-</p>
+
+<p id="pregunta4"></p>
+<input id="usuario4">
+<button id="boton4" type="button" onclick="myFunction(solucion4,4)">Enviar</button>
+<p id="muestraSolucion4">-</p>
+<p id="realimentacion4">-</p>
+
+<p id="pregunta5"></p>
+<input id="usuario5">
+<button id="boton5" type="button" onclick="myFunction(solucion5,5)">Enviar</button>
+<p id="muestraSolucion5">-</p>
+<p id="realimentacion5">-</p>
+
+<p id="pregunta6"></p>
+<input id="usuario6">
+<button id="boton6" type="button" onclick="myFunction(solucion6,6)">Enviar</button>
+<p id="muestraSolucion6">-</p>
+<p id="realimentacion6">-</p>
+
+<p id="aciertos">Aciertos: -</p>
+
+<button type="button" onclick="otra()">Otra vez</button>
+
+<p>Gracias por jugar</p>
+<address>Realizado por @jmzama</address>
+
+<script>
+	p="";
+	aciertos=0;
+	function genera_solucion() {
+	 var verbos1= ["cantar","bailar","saltar","mirar","pasar","nadar"];
+    var pres1= ["o","as","a","amos","ais","an"];
+    var preti1= ["aba","abas","aba","ábamos","abais","aban"];
+    var pretp1= ["é","aste","ó","amos","asteis","aron"];
+    var fut1= ["aré","arás","ará","aremos","aréis","arán"];
+    var cond1= ["aría","arías","aría","aríamos","aríais","arían"];
+
+    var verbos2= ["comer","coser","beber","recoger","meter","tejer"];
+    var pres2= ["o","es","e","emos","éis","en"];
+    var preti2= ["ía","ías","ía","íamos","íais","ían"];
+    var pretp2= ["í","iste","ió","imos","isteis","ieron"];
+    var fut2= ["eré","erás","erá","eremos","eréis","erán"];
+    var cond2= ["ería","erías","ería","eríamos","eríais","erían"];
+
+	 var verbos3= ["partir","recibir","dormir","vivir","batir","escribir"];
+    var pres3= ["o","es","e","imos","ís","en"];
+    var preti3= ["ía","ías","ía","íamos","íais","ían"];
+    var pretp3= ["í","iste","ió","imos","isteis","ieron"];
+    var fut3= ["iré","irás","irá","iremos","iréis","irán"];
+    var cond3= ["iría","irías","iría","iríamos","iríais","irían"];
+
+    var pronombre= ["yo","tú","él","nosotros","vosotros","ellos"];
+    var tiempos= ["presente","pretérito imperfecto","pretérito perfecto simple",
+                             "futuro simple","condicional simple"
+                            ];
+    var tiemposc = ["pretérito perfecto compuesto","pretérito pluscuamperfecto",
+    					"pretérito anterior","futuro perfecto","condicional perfecto"];
+    var pretpc = ["he","has","ha","hemos","habéis","han"];
+    var pretplus = ["había","habías","había","habíamos","habíais","habían"];
+    var pretant = ["hube","hubiste","hubo","hubimos","hubisteis","hubieron"];
+    var futc = ["habré","habrás","habrá","habremos","habréis","habrán"];
+    var condc = ["habría","habrías","habría","habríamos","habríais","habrían"];
+    
+    var compu = document.getElementById("compuestas").checked;
+    var es_compuesto;
+    // Si el usuario quería incluir tiempos compuestos,
+    // decidimos al azar si lo generamos o no
+    if (compu == true)
+        es_compuesto = Math.floor(Math.random() * 2); // 0 o 1
+   
+    var verbo;
+    var solucion="";
+    var conj=Math.floor(Math.random() * 3) + 1; // Conjugación al azar
+    var nverbos=verbos1.length;
+    var n=Math.floor(Math.random() * nverbos); // Verbo al azar
+
+	 // Extraemos un verbo dependiendo de la conjugación
+    if (conj==1)
+      verbo=verbos1[n];
+    else if (conj==2)
+      verbo=verbos2[n];
+    else 
+      verbo=verbos3[n];
+    
+    // Persona y tiempo al azar
+    var persona=Math.floor(Math.random() * pronombre.length);
+    var tiempo=Math.floor(Math.random() * tiempos.length);
+    var tiempoc=Math.floor(Math.random() * tiemposc.length);
+	 p = ""; // Pregunta vacía
+	 // Añadimos primera parte de la pregunta (pronombre al azar)
+    switch(persona)
+            {
+            case 0:
+                p += "Primera persona del singular del ";
+                break;
+            case 1:
+                p += "Segunda persona del singular del ";
+                break;
+            case 2:
+                p += "Tercera persona del singular del ";
+                break;
+            case 3:
+                p += "Primera persona del plural del ";
+                break;
+            case 4:
+                p += "Segunda persona del plural del ";
+                break;
+            case 5:
+                p += "Tercera persona del plural del ";
+                break;
+            }
+            // Añadimos tiempo verbal y verbo (ambos al azar)
+            if (es_compuesto)
+            	p += tiemposc[tiempoc] + " del verbo " + verbo;
+            else
+            	p += tiempos[tiempo] + " del verbo " + verbo;
+
+
+				// Formamos solución
+				
+            solucion = pronombre[persona] + " ";
+            
+            if (!es_compuesto) // Tiempos simples
+            {
+            solucion += verbo.substr(0,verbo.length-2); // Raíz del verbo
+            if (conj==1)
+                switch(tiempo)
+                {
+                case 0:
+                    solucion = solucion + pres1[persona];
+                    break;
+                case 1:
+                    solucion = solucion + preti1[persona];
+                    break;
+                case 2:
+                    solucion = solucion + pretp1[persona];
+                    break;
+                case 3:
+                    solucion = solucion + fut1[persona];
+                    break;
+                case 4:
+                    solucion = solucion + cond1[persona];
+                    break;
+                }
+            else if (conj==2)
+                switch(tiempo)
+                {
+                case 0:
+                    solucion = solucion + pres2[persona];
+                    break;
+                case 1:
+                    solucion = solucion + preti2[persona];
+                    break;
+                case 2:
+                    solucion = solucion + pretp2[persona];
+                    break;
+                case 3:
+                    solucion = solucion + fut2[persona];
+                    break;
+                case 4:
+                    solucion = solucion + cond2[persona];
+                    break;
+                }
+             else
+             	switch(tiempo)
+                {
+                case 0:
+                    solucion = solucion + pres3[persona];
+                    break;
+                case 1:
+                    solucion = solucion + preti3[persona];
+                    break;
+                case 2:
+                    solucion = solucion + pretp3[persona];
+                    break;
+                case 3:
+                    solucion = solucion + fut3[persona];
+                    break;
+                case 4:
+                    solucion = solucion + cond3[persona];
+                    break;
+                }
+              }
+              else { // Se trata de un tiempo compuesto
+              	switch(tiempoc)
+                {
+                case 0:
+                    solucion = solucion + pretpc[persona];
+                    break;
+                case 1:
+                    solucion = solucion + pretplus[persona];
+                    break;
+                case 2:
+                    solucion = solucion + pretant[persona];
+                    break;
+                case 3:
+                    solucion = solucion + futc[persona];
+                    break;
+                case 4:
+                    solucion = solucion + condc[persona];
+                    break;
+                }
+                solucion += " "+verbo.substr(0,verbo.length-2); // Añado raíz del verbo
+                if (conj==1)
+                	solucion += "ado";
+                	else 
+                		solucion += "ido";
+              }
+              return solucion;
+}
+	// Generamos las 6 soluciones
+	// y mostramos la pregunta (valor de p, que es variable global)
+	
+	solucion1 = genera_solucion();
+	document.getElementById("pregunta1").innerHTML = "<b>"+p+"</b>";
+	
+	solucion2 = genera_solucion();
+	document.getElementById("pregunta2").innerHTML = "<b>"+p+"</b>";
+	
+	solucion3 = genera_solucion();
+	document.getElementById("pregunta3").innerHTML = "<b>"+p+"</b>";
+	
+	solucion4 = genera_solucion();
+	document.getElementById("pregunta4").innerHTML = "<b>"+p+"</b>";
+	
+	solucion5 = genera_solucion();
+	document.getElementById("pregunta5").innerHTML = "<b>"+p+"</b>";
+	
+	solucion6 = genera_solucion();
+	document.getElementById("pregunta6").innerHTML = "<b>"+p+"</b>";
+</script>
+
+
+<script>
+// Función que compara la solución: sol con lo introducido por el usuario: usuario n
+// Se lanza la función al hacer clic en cada botón
+function myFunction(sol,n) {
+    var x, text;
+
+    // Get the value of the input field with id="usuario"
+    x = document.getElementById("usuario"+n).value.toLowerCase(); // en minúsculas
+
+	 // Mostramos solución
+	 document.getElementById("muestraSolucion"+n).innerHTML = "Solución: " + sol;
+	 // Desabilitamos campo de introducción de texto y botón
+	 document.getElementById("usuario"+n).disabled = true;
+	 document.getElementById("boton"+n).disabled = true;
+    // Se compara x con sol
+    x = quitaAcentos(x); // Antes de comparar quitamos acentos
+    sol = quitaAcentos(sol);
+   
+    // Comparamos sin espacios
+    if (x.replace(/ /g,'') == sol.replace(/ /g,'')) {
+        text = "Bieen!!";
+        aciertos++;
+    } else {
+        text = "Maaal!!";
+    }
+    // Mostramos acierto o fallos
+    document.getElementById("realimentacion"+n).innerHTML = text;
+    // Mostramos el numero de aciertos
+    document.getElementById("aciertos").innerHTML = "Aciertos: " + aciertos;
+}
+
+function quitaAcentos(cadena) {
+	cadena = cadena.replace(/á/gi,"a");
+   cadena = cadena.replace(/é/gi,"e");
+   cadena = cadena.replace(/í/gi,"i");
+   cadena = cadena.replace(/ó/gi,"o");
+   cadena = cadena.replace(/ú/gi,"u");
+   return cadena;
+}
+</script>
+
+<script>
+function otra()
+{
+	document.getElementById("usuario1").value="";
+	document.getElementById("usuario2").value="";
+	document.getElementById("usuario3").value="";
+	document.getElementById("usuario4").value="";
+	document.getElementById("usuario5").value="";
+	document.getElementById("usuario6").value="";
+	window.location.reload();
+
+}
+</script>
+
+</body>
+</html> 
