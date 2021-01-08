@@ -306,6 +306,8 @@ function quitaAcentos(cadena) {
 <script>
 function otra()
 {
+	var checkbox = document.getElementById("compuestas");
+        localStorage.setItem("compuestas", checkbox.checked); // Almacenamos estado del checkbox para tiempos compuestos
 	document.getElementById("usuario1").value="";
 	document.getElementById("usuario2").value="";
 	document.getElementById("usuario3").value="";
@@ -313,7 +315,8 @@ function otra()
 	document.getElementById("usuario5").value="";
 	document.getElementById("usuario6").value="";
 	window.location.reload();
-
+	var checked = JSON.parse(localStorage.getItem("compuestas")); 
+        document.getElementById("compuestas").checked = checked; // Recuperamos estado del checkbox para tiempos compuestos
 }
 </script>
 
